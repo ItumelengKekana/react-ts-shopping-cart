@@ -13,3 +13,7 @@ Styled Components is used in combination with Material UI to customize the style
 ### Resource
 
 The video used to make this project is available [here](https://www.youtube.com/watch?v=sfmL6bGbiN8)
+
+### API
+
+The api used in this video to fetch dummy data is available [here](https://fakestoreapi.com/)
