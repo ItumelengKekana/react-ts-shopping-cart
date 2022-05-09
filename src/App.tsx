@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 
-import { Drawer, LinearProgress, Grid, colors } from "@material-ui/core";
+import { Drawer, LinearProgress, Grid } from "@material-ui/core";
 import { AddShoppingCart } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
 import Item from "./Item/Item";
@@ -9,19 +9,9 @@ import Cart from "./Cart/Cart";
 //Styles
 import { Wrapper, StyledButton } from "./App.styles";
 //Types
-export type CartItemType = {
-	id: number;
-	category: string;
-	description: string;
-	price: number;
-	title: string;
-	amount: number;
-	image: string;
-};
-
-const getProducts = async (): Promise<CartItemType[]> => {
-	return await (await fetch("https://fakestoreapi.com/products")).json();
-};
+import { CartItemType } from "./Types";
+//Functions
+import { getProducts, getTotalItems } from "./HelperFunctions";
 
 const App = () => {
 	const [cartOpen, setCartOpen] = useState(false);
@@ -32,10 +22,6 @@ const App = () => {
 	);
 
 	// console.log(data);
-
-	const getTotalItems = (items: CartItemType[]) => {
-		return items.reduce((acc: number, item) => acc + item.amount, 0);
-	};
 
 	const handleAddToCart = (clickedItem: CartItemType) => {
 		setCartItems((prev) => {
@@ -51,7 +37,7 @@ const App = () => {
 						: item
 				);
 			}
-			//The first time the item is added
+			//The first time the item is added (not item in the cart)
 			return [...prev, { ...clickedItem, amount: 1 }];
 		});
 	};
