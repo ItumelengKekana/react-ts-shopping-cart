@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 
 import { Drawer, LinearProgress, Grid } from "@material-ui/core";
@@ -10,50 +10,21 @@ import Cart from "./Cart/Cart";
 import { Wrapper, StyledButton } from "./App.styles";
 //Types
 import { CartItemType } from "./Types";
+import { CartContextType } from "./Types";
 //Functions
 import { getProducts, getTotalItems } from "./HelperFunctions";
+import { CartContext } from "./Context/Context";
 
 const App = () => {
 	const [cartOpen, setCartOpen] = useState(false);
-	const [cartItems, setCartItems] = useState([] as CartItemType[]);
 	const { data, isLoading, error } = useQuery<CartItemType[]>(
 		"products",
 		getProducts
 	);
+	const { cartItems, handleAddToCart, handleRemoveFromCart } =
+		React.useContext(CartContext) as CartContextType;
 
 	// console.log(data);
-
-	const handleAddToCart = (clickedItem: CartItemType) => {
-		setCartItems((prev) => {
-			//Has the item already been added to the cart?
-			const isItemInCart = prev.find(
-				(item) => item.id === clickedItem.id
-			);
-
-			if (isItemInCart) {
-				return prev.map((item) =>
-					item.id === clickedItem.id
-						? { ...item, amount: item.amount + 1 }
-						: item
-				);
-			}
-			//The first time the item is added (not item in the cart)
-			return [...prev, { ...clickedItem, amount: 1 }];
-		});
-	};
-
-	const handleRemoveFromCart = (id: number) => {
-		setCartItems((prev) =>
-			prev.reduce((acc, item) => {
-				if (item.id === id) {
-					if (item.amount === 1) return acc;
-					return [...acc, { ...item, amount: item.amount - 1 }];
-				} else {
-					return [...acc, item];
-				}
-			}, [] as CartItemType[])
-		);
-	};
 
 	if (isLoading) return <LinearProgress />;
 
