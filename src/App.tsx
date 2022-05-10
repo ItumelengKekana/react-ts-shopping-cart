@@ -21,8 +21,6 @@ const App = () => {
 		getProducts
 	);
 
-	// console.log(data);
-
 	const handleAddToCart = (clickedItem: CartItemType) => {
 		setCartItems((prev) => {
 			//Has the item already been added to the cart?
