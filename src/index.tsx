@@ -10,6 +10,8 @@ const client = new QueryClient();
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );
+
+//Added context provider as a wrapper
 root.render(
 	<ContextProvider>
 		<QueryClientProvider client={client}>

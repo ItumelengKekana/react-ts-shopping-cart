@@ -8,6 +8,7 @@ export type CartItemType = {
 	image: string;
 };
 
+//Type definition for the context
 export type CartContextType = {
 	cartItems: CartItemType[];
 	handleAddToCart: (clickedItem: CartItemType) => void;

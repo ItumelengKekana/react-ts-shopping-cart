@@ -11,6 +11,7 @@ type Props = {
 };
 
 const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
+	//Function to calculate the total price of the cart
 	const calculateTotal = (items: CartItemType[]) => {
 		return items.reduce(
 			(acc: number, item) => acc + item.amount * item.price,
@@ -19,6 +20,7 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
 	};
 
 	return (
+		//Check to see if there are any items in the cart and the display them
 		<Wrapper>
 			<h2>Your Shopping Cart:</h2>
 			{cartItems.length === 0 ? <p>No items in cart.</p> : null}

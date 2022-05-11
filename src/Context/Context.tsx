@@ -3,20 +3,24 @@ import { CartItemType, CartContextType } from "../Types";
 
 export const CartContext = React.createContext<CartContextType | null>(null);
 
+//Types
+//This is one way of fixing the error (Property 'children' does not exist on type 'ReactNode’)
 type Props = {
 	children?: React.ReactNode;
 };
 
 const ContextProvider: React.FC<Props> = ({ children }) => {
-	const [cartItems, setCartItems] = React.useState([] as CartItemType[]);
+	const [cartItems, setCartItems] = React.useState([] as CartItemType[]); //Functional component allows us to use this hook
 
+	//function to add items to the cart
 	const handleAddToCart = (clickedItem: CartItemType) => {
 		setCartItems((prev) => {
-			//Has the item already been added to the cart?
+			//Checks if item already been added to the cart
 			const isItemInCart = prev.find(
 				(item) => item.id === clickedItem.id
 			);
 
+			//add one to the quantity if the item was found in the cart
 			if (isItemInCart) {
 				return prev.map((item) =>
 					item.id === clickedItem.id
@@ -29,6 +33,7 @@ const ContextProvider: React.FC<Props> = ({ children }) => {
 		});
 	};
 
+	//Function to remove items from the cart
 	const handleRemoveFromCart = (id: number) => {
 		setCartItems((prev) =>
 			prev.reduce((acc, item) => {

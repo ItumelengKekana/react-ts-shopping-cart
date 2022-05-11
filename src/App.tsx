@@ -17,21 +17,22 @@ import { CartContext } from "./Context/Context";
 
 const App = () => {
 	const [cartOpen, setCartOpen] = useState(false);
+	//Fetching products and inserting into 'data'
 	const { data, isLoading, error } = useQuery<CartItemType[]>(
 		"products",
 		getProducts
 	);
+
 	const { cartItems, handleAddToCart, handleRemoveFromCart } =
 		React.useContext(CartContext) as CartContextType;
 
-	// console.log(data);
+	if (isLoading) return <LinearProgress />; //Loading animation while data os fetched
 
-	if (isLoading) return <LinearProgress />;
-
-	if (error) return <div>Something went wrong...</div>;
+	if (error) return <div>Something went wrong...</div>; //Error message if data is unavailable
 
 	return (
 		<Wrapper>
+			{/* Drawer containing the cart */}
 			<Drawer
 				anchor="right"
 				open={cartOpen}
@@ -43,6 +44,7 @@ const App = () => {
 					removeFromCart={handleRemoveFromCart}
 				/>
 			</Drawer>
+			{/* Cart button with a badge showing amount of items in the cart */}
 			<StyledButton onClick={() => setCartOpen(true)}>
 				<Badge badgeContent={getTotalItems(cartItems)} color="error">
 					<AddShoppingCart />
