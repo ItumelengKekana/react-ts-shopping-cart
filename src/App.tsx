@@ -23,19 +23,10 @@ const App = () => {
 		getProducts
 	);
 
-<<<<<<< HEAD
-	const handleAddToCart = (clickedItem: CartItemType) => {
-		setCartItems((prev) => {
-			//Has the item already been added to the cart?
-			const isItemInCart = prev.find(
-				(item) => item.id === clickedItem.id
-			);
-=======
 	const { cartItems, handleAddToCart, handleRemoveFromCart } =
 		React.useContext(CartContext) as CartContextType;
 
 	if (isLoading) return <LinearProgress />; //Loading animation while data os fetched
->>>>>>> using-context
 
 	if (error) return <div>Something went wrong...</div>; //Error message if data is unavailable
 
