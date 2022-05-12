@@ -7,3 +7,10 @@ export type CartItemType = {
 	amount: number;
 	image: string;
 };
+
+//Type definition for the context
+export type CartContextType = {
+	cartItems: CartItemType[];
+	handleAddToCart: (clickedItem: CartItemType) => void;
+	handleRemoveFromCart: (id: number) => void;
+};
